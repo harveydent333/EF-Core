@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Product>
+
+@{
+    Layout = "_Layout";
+}
+<div>
+    <div>
+        @if (Model.Count() == 0)
+        {
+            <p>Продукты отсутсвуют</p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">PurchasePrice</th>
+                        <th scope="col">RetailPrice</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Product product in Model)
+                    {
+                        <tr scope="row" onclick="selectRow(this)">
+                            <td>
+                                <input hidden readonly value="@product.Id">
+                            </td>
+                            <td>
+                                <p> @product.Name</p>
+                            </td>
+                            <td>
+                                <p> @product.Category.Name</p>
+                            </td>
+                            <td>
+                                <p> @product.PurchasePrice</p>
+                            </td>
+                            <td>
+                                <p> @product.RetailPrice</p>
+                            </td>
+                            <td>
+                                <a asp-route-id="@product.Id" asp-action="UpdateProduct" asp-controller="Product" class="btn btn-info">Update</a>
+                            </td>
+                            <td>
+                                <form method="post" asp-action="DeleteProduct" asp-controller="Product">
+                                    <input hidden name="id" value="@product.Id" />
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td></td>
+                        <td>
+                            <a asp-controller="Product" asp-action="CreateProduct" class="btn btn-warning">Add product</a>
+                        </td>
+                        <td>
+                            <a asp-controller="Product" asp-action="UpdateAllProducts" class="btn btn-info">Update all products</a>
+
+                        </td>
+                        <td>
+                            <a asp-controller="Product" asp-action="DeleteAllProducts" class="btn btn-danger">Delete all products</a>
+                        </td>
+                        <td>
+                            <button onclick="updateSelectedItems()" id="btn-selected" class="selected-hidden btn btn-info" type="submit">Update selected</button>
+                        </td>
+                        <td>
+                            <button onclick="deleteSelectedItems()" id="btn-selected" class="selected-hidden btn btn-danger" type="submit">Delete selected</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+    </div>
+    <div>
+    </div>
+</div>

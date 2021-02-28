@@ -1,0 +1,56 @@
+﻿@{
+    Layout = "_Layout";
+}
+@model IEnumerable<Product>
+
+<form asp-action="UpdateAllProducts" method="post" asp-controller="Product">
+    @{int i = 0; }
+
+    @foreach (var product in Model)
+    {
+        <input type="hidden" name="Products[@i].Id" value="@product.Id">
+        <table>
+            <tr>
+                <td>
+                    <label asp-for="@product.Name">Name:</label>
+                </td>
+                <td>
+                    <input name="Products[@i].Name" value="@product.Name" /><br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="@product.Category">Category:</label>
+                </td>
+                <td>
+                    <select class="form-control" name="Products[@i].CategoryId">
+                        <option value="@product.CategoryId" disabled selected>@product.Category.Name</option>
+                        @foreach (Category category in ViewBag.Categories)
+                        {
+                            <option value="@category.Id">@category.Name</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="@product.PurchasePrice">PurchasePrice: </label>
+                </td>
+                <td>
+                    <input name="Products[@i].PurchasePrice" value="@product.PurchasePrice" /><br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="@product.RetailPrice">RetailPrice: </label>
+                </td>
+                <td>
+                    <input name="Products[@i].RetailPrice" value="@product.RetailPrice" /><br />
+                </td>
+            </tr>
+        </table>
+        { i++; }
+        <br>
+    }
+    <input class="btn btn-success" type="submit" value="Save all" />
+</form>

@@ -1,0 +1,86 @@
+﻿@{
+    Layout = "_Layout";
+}
+@model Order
+
+<form method="POST" asp-action="Update" asp-controller="Order">
+    <table>
+        <tr>
+            <td>
+                <input hidden asp-for="Id" value="@Model.Id" /><br />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="CustomerName">CustomerName:</label>
+            </td>
+            <td>
+                <input asp-for="CustomerName" /><br />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Address">Address:</label>
+            </td>
+            <td>
+                <input asp-for="Address" /><br />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="ZipCode">ZipCode: </label>
+            </td>
+            <td>
+                <input asp-for="ZipCode" /><br />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="State">State: </label>
+            </td>
+            <td>
+                <input asp-for="State" /><br />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Shipped">Shipped: </label>
+            </td>
+            <td>
+                <input type="checkbox" asp-for="Shipped" /><br />
+            </td>
+        </tr>
+    </table>
+    <h6 class="mt-1 p-2 bg-primary text-white text-center">Products Orders</h6>
+    <table width="70%">
+        <tr>
+            <th></th>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Quantity</th>
+        </tr>
+        @{int i = 0;}
+        @foreach (OrderLine line in ViewBag.Lines)
+        {
+            <tr>
+                <td>
+                    <input hidden name="Lines[@i].Id" value="@line.Id" />
+                    <input hidden name="Lines[@i].OrderId" value="@line?.OrderId" />
+                </td>
+                <td width="50%">
+                    <input hidden name="Lines[@i].ProductId" value="@line.ProductId" />
+                    <p> @line.Product.Name </p>
+                </td>
+                <td width="30%">
+                    <p>@line.Product.Category.Name</p>
+                </td>
+                <td>
+                    <input name="Lines[@i].Quantity" value="@line.Quantity" />
+                </td>
+            </tr>
+            i++;
+        }
+    </table>
+    <input class="btn btn-success" type="submit" value="Update" />
+    <a asp-action="Orders" class="btn btn-secondary">Cancel</a>
+</form>

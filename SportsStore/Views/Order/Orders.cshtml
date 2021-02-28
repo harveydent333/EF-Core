@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Order>
+
+@{
+    Layout = "_Layout";
+}
+<div>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Zip</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Profit</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Order order in Model)
+                {
+                    <tr scope="row">
+                        <td>
+                            <input hidden readonly value="@order.Id">
+                        </td>
+                        <td>
+                            <p> @order.CustomerName</p>
+                        </td>
+                        <td>
+                            <p> @order.ZipCode</p>
+                        </td>
+                        <td>
+                            <p> @order.Lines.Sum(l => l.Quantity * l.Product.PurchasePrice)</p>
+                        </td>
+                        <td>
+                            <p> @order.Lines.Sum(l => l.Quantity * (l.Product.RetailPrice - l.Product.PurchasePrice))</p>
+                        </td>
+                        <td>
+                            <p> @(order.Shipped ? "Shipped" : "Pending")</p>
+                        </td>
+                        <td>
+                            <a asp-route-id="@order.Id" asp-action="UpdateOrder" asp-controller="Order" class="btn btn-info">Update</a>
+                        </td>
+                        <td>
+                            <form method="post" asp-action="DeleteOrder" asp-controller="Order">
+                                <input hidden name="id" value="@order.Id" />
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td></td>
+                    <td colspan="7">
+                        <a asp-controller="Order" asp-action="CreateOrder" class="btn btn-warning">Add order</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+    </div>
+</div>

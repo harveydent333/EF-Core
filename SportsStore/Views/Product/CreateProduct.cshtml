@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "_Layout";
+}
+@model Product
+
+<form method="POST" asp-action="CreateProduct" asp-controller="Product">
+    <table>
+        <tr>
+            <td>
+                <label asp-for="Name">Name:</label>
+            </td>
+            <td>
+                <input asp-for="Name" /><br />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Category">Category:</label>
+            </td>
+            <td>
+                <select class="form-control" asp-for="CategoryId">
+                    <option disabled selected>Choose category</option>
+                    @foreach (Category category in ViewBag.Categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="PurchasePrice">PurchasePrice: </label>
+            </td>
+            <td>
+                <input asp-for="PurchasePrice" /><br />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="RetailPrice">RetailPrice: </label>
+            </td>
+            <td>
+                <input asp-for="RetailPrice" /><br />
+            </td>
+        </tr>
+
+    </table>
+    <input class="btn btn-success" type="submit" value="Create" />
+    <a asp-action="Products" class="btn btn-secondary">Cancel</a>
+</form>

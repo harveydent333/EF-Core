@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "_Layout";
+}
+@model Category
+
+<form method="POST" asp-action="Update" asp-controller="Category">
+    <input type="hidden" asp-for="Id">
+    <table>
+        <tr>
+            <td>
+                <label asp-for="Name">Name:</label>
+            </td>
+            <td>
+                <input asp-for="Name" /><br />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Description">Description:</label>
+            </td>
+            <td>
+                <input asp-for="Description" /><br />
+            </td>
+        </tr>
+    </table>
+    <input class="btn btn-success" type="submit" value="Update" />
+</form>

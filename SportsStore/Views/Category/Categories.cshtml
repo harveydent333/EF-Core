@@ -1,0 +1,55 @@
+﻿@model IQueryable<Category>
+
+@{
+    Layout = "_Layout";
+}
+<div>
+    <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description </th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Category category in Model)
+                    {
+                        <tr scope="row">
+                            <td>
+                                <input hidden readonly value="@category.Id">
+                            </td>
+                            <td>
+                                <p> @category.Name</p>
+                            </td>
+                            <td>
+                                <p> @category.Description</p>
+                            </td>
+                            <td>
+                                <a asp-route-id="@category.Id" asp-action="UpdateCategory" asp-controller="Category" class="btn btn-info">Update</a>
+                            </td>
+                            <td>
+                                <form method="post" asp-action="DeleteCategory" asp-controller="Category">
+                                    <input hidden name="id" value="@category.Id" />
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td></td>
+                        <td>
+                            <a asp-controller="Category" asp-action="CreateCategory" class="btn btn-warning">Add category</a>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+    <div>
+    </div>
+</div>

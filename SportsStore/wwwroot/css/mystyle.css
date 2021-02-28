@@ -1,0 +1,26 @@
+﻿.tab {
+    width: 200px;
+    padding: 5px;
+    border: solid 1px black;
+    float: left;
+    position: relative;
+    top: 40px;
+    left: 170px;
+}
+
+.background-color-row {
+    background-color: papayawhip;
+}
+
+.selected-hidden {
+    visibility: hidden;
+}
+
+.main-table {
+    width: 60%;
+}
+
+.create-table {
+    width: 100%;
+    border: 1px solid black;
+}
